@@ -1,0 +1,175 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ------------------------------------------------------------------ */
+/* Metric-matched fallbacks: text laid out in the fallback occupies the same space as the web font,
+   so the swap when Fraunces / Inter arrive causes no layout shift. */
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial'), local('Helvetica Neue'), local('Helvetica');
+  size-adjust: 107.12%;
+  ascent-override: 90.44%;
+  descent-override: 22.52%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Fraunces Fallback';
+  src: local('Georgia'), local('Times New Roman');
+  size-adjust: 104.5%;
+  ascent-override: 93.5%;
+  descent-override: 24.4%;
+  line-gap-override: 0%;
+}
+
+/* ------------------------------------------------------------------ */
+/* Design tokens                                                       */
+/* ------------------------------------------------------------------ */
+:root {
+  --bg: #faf7f2;
+  --surface: #ffffff;
+  --surface-2: #f3eee6;
+  --text: #1c1917;
+  --text-muted: #6b635b; /* 5.6:1 on --bg */
+  --border: #e7e0d6;
+  --border-strong: #d6cdc0;
+  --accent: #e8663d;
+  --accent-text: #b5461f; /* accent for text on light surfaces: 5.1:1 on --bg */
+  --accent-soft: #fbe6dc;
+  --secondary: #2d5f5d;
+  --secondary-soft: #dcebe9;
+  --danger: #b42318;
+  --ring: #e8663d;
+
+  --vibe-spark: #f2b134;
+  --vibe-deep: #6b5bdb;
+  --vibe-funny: #f26d6d;
+  --vibe-support: #e8663d;
+  --vibe-mindblown: #2d9cdb;
+
+  --shadow-card: 0 1px 2px rgb(28 25 23 / 0.04);
+  --shadow-lift: 0 10px 30px -12px rgb(28 25 23 / 0.18), 0 2px 6px rgb(28 25 23 / 0.05);
+
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #121110;
+  --surface: #1c1a18;
+  --surface-2: #26231f;
+  --text: #f5f1ea;
+  --text-muted: #a8a097;
+  --border: #2e2a26;
+  --border-strong: #3d3833;
+  --accent: #ff7a4d;
+  --accent-text: #ff7a4d;
+  --accent-soft: #3a2219;
+  --secondary: #4fa39f;
+  --secondary-soft: #1b2e2d;
+  --danger: #f97066;
+  --ring: #ff7a4d;
+
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.3);
+  --shadow-lift: 0 14px 34px -14px rgb(0 0 0 / 0.7), 0 2px 6px rgb(0 0 0 / 0.35);
+
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--text);
+  --color-muted: var(--text-muted);
+  --color-line: var(--border);
+  --color-line-strong: var(--border-strong);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-text);
+  --color-accent-soft: var(--accent-soft);
+  --color-secondary: var(--secondary);
+  --color-secondary-soft: var(--secondary-soft);
+  --color-danger: var(--danger);
+  --color-ring: var(--ring);
+
+  --color-vibe-spark: var(--vibe-spark);
+  --color-vibe-deep: var(--vibe-deep);
+  --color-vibe-funny: var(--vibe-funny);
+  --color-vibe-support: var(--vibe-support);
+  --color-vibe-mindblown: var(--vibe-mindblown);
+
+  --font-serif: 'Fraunces', 'Fraunces Fallback', ui-serif, Georgia, serif;
+  --font-sans: 'Inter', 'Inter Fallback', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --radius-card: 16px;
+  --shadow-card: var(--shadow-card);
+  --shadow-lift: var(--shadow-lift);
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-bg font-sans text-ink antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-serif tracking-tight;
+    font-optical-sizing: auto;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+  ::selection {
+    background: var(--accent-soft);
+  }
+}
+
+@layer utilities {
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* Text-moment backgrounds (keys mirror MomentBackground on the server). Deep enough for white text. */
+@layer components {
+  .moment-bg-sunset { background: linear-gradient(160deg, #d9572f 0%, #9e2f5c 100%); }
+  .moment-bg-ocean { background: linear-gradient(160deg, #1e6fa8 0%, #2a2f7a 100%); }
+  .moment-bg-forest { background: linear-gradient(160deg, #2d5f5d 0%, #173326 100%); }
+  .moment-bg-dusk { background: linear-gradient(160deg, #6b5bdb 0%, #241f57 100%); }
+  .moment-bg-ember { background: linear-gradient(160deg, #b4461f 0%, #5e1717 100%); }
+  .moment-bg-plum { background: linear-gradient(160deg, #8e3b7a 0%, #351744 100%); }
+  /* Unseen-moment ring around avatars */
+  .moment-ring-unseen { background: conic-gradient(from 200deg, var(--vibe-spark), var(--accent), var(--vibe-funny), var(--vibe-deep), var(--vibe-spark)); }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

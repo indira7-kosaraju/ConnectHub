@@ -1,0 +1,46 @@
+# Render Blueprint: https://render.com/docs/blueprint-spec
+# "New → Blueprint" in the Render dashboard, point it at this repo. Secrets marked sync:false are
+# entered in the dashboard during setup (never committed).
+services:
+  - type: web
+    name: connecthub-api
+    runtime: docker
+    rootDir: server
+    dockerfilePath: ./Dockerfile
+    plan: free
+    region: oregon
+    healthCheckPath: /actuator/health
+    autoDeploy: true
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod,demo        # drop ",demo" once you don't want sample content
+      - key: JAVA_OPTS
+        value: "-XX:MaxRAMPercentage=60 -XX:+UseSerialGC -Xss512k"
+      - key: JWT_SECRET
+        generateValue: true     # Render generates a strong random value
+      - key: DATABASE_URL       # jdbc:postgresql://<neon-host>/<db>?sslmode=require
+        sync: false
+      - key: DATABASE_USERNAME
+        sync: false
+      - key: DATABASE_PASSWORD
+        sync: false
+      - key: DB_POOL_SIZE
+        value: "5"
+      - key: FRONTEND_URL       # https://<your-app>.vercel.app
+        sync: false
+      - key: CORS_ALLOWED_ORIGINS   # https://<your-app>.vercel.app (comma-separate previews if needed)
+        sync: false
+      - key: COOKIE_SECURE
+        value: "true"
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_REDIRECT_URI   # https://<your-app>.vercel.app/login/oauth2/code/google
+        sync: false

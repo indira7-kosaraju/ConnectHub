@@ -1,0 +1,21 @@
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
+*.iml
+
+# Env
+.env
+.env.local
+.env.*.local
+server/.env
+
+# Server
+server/target/
+server/uploads/
+
+# Client
+client/node_modules/
+client/dist/
+client/test-results/
+client/playwright-report/

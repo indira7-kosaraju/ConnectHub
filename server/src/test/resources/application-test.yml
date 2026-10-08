@@ -1,0 +1,7 @@
+app:
+  storage:
+    local-dir: target/test-uploads
+logging:
+  level:
+    com.connecthub: INFO
+    org.testcontainers: WARN

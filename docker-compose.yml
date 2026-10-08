@@ -1,0 +1,43 @@
+# Local development: PostgreSQL 16 + the Spring Boot API.
+#   docker compose up -d postgres        # just the database (run the API from your IDE / ./mvnw)
+#   docker compose up --build            # database + API container
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: connecthub-postgres
+    environment:
+      POSTGRES_DB: connecthub
+      POSTGRES_USER: connecthub
+      POSTGRES_PASSWORD: connecthub
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U connecthub -d connecthub"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  server:
+    build: ./server
+    container_name: connecthub-server
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - path: ./server/.env
+        required: false
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      DATABASE_URL: jdbc:postgresql://postgres:5432/connecthub
+      DATABASE_USERNAME: connecthub
+      DATABASE_PASSWORD: connecthub
+      CORS_ALLOWED_ORIGINS: http://localhost:5173
+      FRONTEND_URL: http://localhost:5173
+      COOKIE_SECURE: "false"
+    ports:
+      - "8080:8080"
+
+volumes:
+  pgdata:

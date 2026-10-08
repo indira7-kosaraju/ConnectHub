@@ -1,0 +1,28 @@
+# Word stems masked by ProfanityFilter (matched case-insensitively, whole words, common suffixes and
+# leetspeak substitutions). Kept intentionally short: this is a soft filter, not a moderation system.
+fuck
+motherfuck
+shit
+bullshit
+bitch
+asshole
+arsehole
+bastard
+cunt
+dick
+dickhead
+pussy
+cock
+prick
+twat
+wanker
+slut
+whore
+douche
+jackass
+fag
+faggot
+nigger
+nigga
+retard
+spastic
