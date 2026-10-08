@@ -4,10 +4,10 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "rewrites": [
-    { "source": "/api/:path*", "destination": "https://connecthub-api.onrender.com/api/:path*" },
-    { "source": "/oauth2/:path*", "destination": "https://connecthub-api.onrender.com/oauth2/:path*" },
-    { "source": "/login/oauth2/:path*", "destination": "https://connecthub-api.onrender.com/login/oauth2/:path*" },
-    { "source": "/uploads/:path*", "destination": "https://connecthub-api.onrender.com/uploads/:path*" },
+    { "source": "/api/:path*", "destination": "https://connecthub-api-lxh1.onrender.com/api/:path*" },
+    { "source": "/oauth2/:path*", "destination": "https://connecthub-api-lxh1.onrender.com/oauth2/:path*" },
+    { "source": "/login/oauth2/:path*", "destination": "https://connecthub-api-lxh1.onrender.com/login/oauth2/:path*" },
+    { "source": "/uploads/:path*", "destination": "https://connecthub-api-lxh1.onrender.com/uploads/:path*" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "headers": [
