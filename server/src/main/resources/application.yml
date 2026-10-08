@@ -72,6 +72,15 @@ management:
       probes:
         enabled: true
       show-details: never
+  # /actuator/health is the platform's liveness check (Render's healthCheckPath). It must not depend
+  # on the database: Neon's free tier suspends idle compute, and a slow wake-up would otherwise turn
+  # the check DOWN and make Render stop a perfectly healthy server. Database problems surface on real
+  # requests instead (and Hikari reconnects on its own).
+  health:
+    db:
+      enabled: false
+    diskspace:
+      enabled: false
 
 springdoc:
   swagger-ui:

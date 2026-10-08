@@ -108,6 +108,11 @@ The "Continue with Google" button appears automatically once both credentials ar
 
 ## Operations notes
 
+- **If Render shows a plain "Not Found" page** (response header `x-render-routing: no-server`), no instance is
+  running: the deploy is still in progress or failed. Check the service's **Events** and **Logs**.
+  `/actuator/health` is a liveness check that doesn't touch the database (DECISIONS #134), so it stays UP even
+  while Neon wakes from suspension.
+
 - **Cold starts:** Render's free plan sleeps after ~15 minutes idle; the first request then takes ~30–60 s.
   The SPA shows its splash and retries, but for demos open the API URL a minute beforehand
   (or use a paid instance).
